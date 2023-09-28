@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bouncing Logo</title>
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      background-color: black;
+    }
+
+    .container {
+      position: relative;
+      height: 100%;
+    }
+
+    .logo {
+      position: absolute;
+      width: 10%;
+      /* Set the width as a percentage of the container */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img src="dvd-logo.png" alt="Logo" class="logo">
+  </div>
+
+  <script>
+    const logo = document.querySelector('.logo');
+    let x = 0;
+    let y = 0;
+    let xDirection = 5;
+    let yDirection = 5;
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function animate() {
+      const container = document.querySelector('.container');
+      const maxX = container.clientWidth - logo.clientWidth;
+      const maxY = container.clientHeight - logo.clientHeight;
+
+      x += xDirection;
+      y += yDirection;
+
+      if (x >= maxX || x <= 0) {
+        xDirection *= -1;
+        logo.style.filter = `hue-rotate(${Math.random() * 360}deg)`; // Change color on bounce
+      }
+
+      if (y >= maxY || y <= 0) {
+        yDirection *= -1;
+        logo.style.filter = `hue-rotate(${Math.random() * 360}deg)`; // Change color on bounce
+      }
+
+      logo.style.transform = `translate(${x}px, ${y}px)`;
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+
+</html>
